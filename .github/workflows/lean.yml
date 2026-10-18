@@ -1,0 +1,29 @@
+# ABOUTME: Build the fixed Lean release and check proofs, scenarios, and evidence integrity.
+# ABOUTME: Audit actual transitive axiom dependencies in addition to source hygiene.
+name: Lean
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install pinned Lean
+        run: |
+          bash scripts/bootstrap-lean.sh
+          echo "ELAN_HOME=$PWD/.tools/elan" >> "$GITHUB_ENV"
+          echo "$PWD/.tools/elan/bin" >> "$GITHUB_PATH"
+      - name: Build and check proofs
+        run: |
+          lake build
+          lake env lean LeanForStandardization.lean
+          lake env lean Audit.lean
+          ruby scripts/check-audit.rb
+      - name: Run model tests and JSON scenarios
+        run: |
+          lake exe model-tests
+          ruby scripts/check.rb
+          ruby scripts/check-json.rb

@@ -1,0 +1,39 @@
+{
+  "config": {
+    "dnsProtected": false,
+    "mayBecomeReliant": true
+  },
+  "events": [
+    {
+      "kind": "dnsA",
+      "addresses": [
+        4
+      ]
+    },
+    {
+      "kind": "advance",
+      "ms": 50
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "transportReady",
+      "family": "ipv4",
+      "address": 4
+    },
+    {
+      "kind": "beginTls",
+      "family": "ipv4",
+      "address": 4
+    }
+  ],
+  "expect": {
+    "https": "pending",
+    "tlsAllowed": false,
+    "mustWait": true,
+    "tls": [],
+    "rejectedActions": 1,
+    "valid": true
+  }
+}

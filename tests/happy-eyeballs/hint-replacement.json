@@ -1,0 +1,62 @@
+{
+  "config": {
+    "attemptDelay": 0
+  },
+  "events": [
+    {
+      "kind": "https",
+      "answer": "service",
+      "hints": [
+        {
+          "family": "ipv6",
+          "address": 6
+        },
+        {
+          "family": "ipv6",
+          "address": 7
+        }
+      ]
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "dnsAAAA",
+      "addresses": [
+        8
+      ]
+    },
+    {
+      "kind": "advance",
+      "ms": 10
+    },
+    {
+      "kind": "start"
+    }
+  ],
+  "expect": {
+    "startTimes": [
+      0,
+      10
+    ],
+    "active": [
+      {
+        "family": "ipv6",
+        "address": 8
+      },
+      {
+        "family": "ipv6",
+        "address": 6
+      }
+    ],
+    "candidates": [
+      {
+        "family": "ipv6",
+        "address": 8
+      }
+    ],
+    "cancelled": [],
+    "rejectedActions": 0,
+    "valid": true
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "retrieved_on": "2026-10-18",
+  "spec": {
+    "repository": "ietf-wg-happy/draft-happy-eyeballs-v3",
+    "commit": "915b2e601dadce9e1eb0c6f7a6b8a7023dc9e790",
+    "revision": "draft-ietf-happy-happyeyeballs-v3-04",
+    "published_url": "https://www.ietf.org/archive/id/draft-ietf-happy-happyeyeballs-v3-04.txt",
+    "status": "Active Internet-Draft"
+  },
+  "files": [
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 1580,
+      "sha256": "92a3df557a7c2cf4698d9ce6727f5dc3a8ae97b23333019a95d32b53f9249186",
+      "git_blob_sha1": "e0a43b21c8bdaa32519e65aa406dfd8a53a87ff8"
+    },
+    {
+      "path": "LICENSE.md",
+      "bytes": 135,
+      "sha256": "1163c843871878f1ced3dd2fe1ea522201ff611b100ec9fd6374ab85ab0dd3f8",
+      "git_blob_sha1": "c08bf78eed1a023e4a9736c03266bc020527f664"
+    },
+    {
+      "path": "draft-ietf-happy-happyeyeballs-v3-04.md",
+      "bytes": 54386,
+      "sha256": "7ebf658a131210a318ef7bdd992efea99aa677534242c3c56100c19de727afb9",
+      "git_blob_sha1": "6c51350a4256f093fefef25f6f505fc4f5c3a8bd"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "operations": [
+    {"op": "register", "caller": 1},
+    {"op": "approve", "caller": 1, "agentId": 0, "operator": 2},
+    {"op": "setOperator", "caller": 1, "operator": 3, "enabled": true},
+    {"op": "feedback", "caller": 1, "agentId": 0, "value": "100", "decimals": 0},
+    {"op": "feedback", "caller": 2, "agentId": 0, "value": "100", "decimals": 0},
+    {"op": "feedback", "caller": 3, "agentId": 0, "value": "100", "decimals": 0},
+    {"op": "feedback", "caller": 4, "agentId": 0, "value": "100", "decimals": 18},
+    {"op": "feedback", "caller": 4, "agentId": 0, "value": "100", "decimals": 19}
+  ],
+  "expect": {
+    "state": {"feedback": [{"agentId": 0, "client": 4, "index": 1, "value": "100", "decimals": 18}]},
+    "outcomes": [
+      {"status": "accepted"}, {"status": "accepted"}, {"status": "accepted"},
+      {"status": "rejected", "reason": "selfFeedback"},
+      {"status": "rejected", "reason": "selfFeedback"},
+      {"status": "rejected", "reason": "selfFeedback"},
+      {"status": "accepted"}, {"status": "rejected", "reason": "decimalsOutOfRange"}
+    ]
+  }
+}

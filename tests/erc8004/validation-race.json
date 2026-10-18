@@ -1,0 +1,23 @@
+{
+  "operations": [
+    {"op": "register", "caller": 1},
+    {"op": "request", "caller": 2, "agentId": 0, "validator": 3, "hash": 5},
+    {"op": "approve", "caller": 1, "agentId": 0, "operator": 2},
+    {"op": "request", "caller": 2, "agentId": 0, "validator": 3, "hash": 5},
+    {"op": "request", "caller": 1, "agentId": 0, "validator": 4, "hash": 5},
+    {"op": "respond", "caller": 4, "hash": 5, "response": 100},
+    {"op": "respond", "caller": 3, "hash": 5, "response": 101},
+    {"op": "respond", "caller": 3, "hash": 5, "response": 0},
+    {"op": "transfer", "caller": 1, "agentId": 0, "newOwner": 4},
+    {"op": "respond", "caller": 3, "hash": 5, "response": 100}
+  ],
+  "expect": {
+    "state": {"agents": [{"owner": 4, "wallet": null}], "validations": [{"hash": 5, "agentId": 0, "validator": 3, "response": 100}]},
+    "outcomes": [
+      {"status": "accepted"}, {"status": "rejected", "reason": "unauthorized"},
+      {"status": "accepted"}, {"status": "accepted"}, {"status": "rejected", "reason": "duplicateRequest"},
+      {"status": "rejected", "reason": "wrongValidator"}, {"status": "rejected", "reason": "responseOutOfRange"},
+      {"status": "accepted"}, {"status": "accepted"}, {"status": "accepted"}
+    ]
+  }
+}

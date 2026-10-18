@@ -1,0 +1,51 @@
+{
+  "events": [
+    {
+      "kind": "dnsAAAA",
+      "addresses": [
+        6
+      ]
+    },
+    {
+      "kind": "https",
+      "answer": "service"
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "https",
+      "answer": "failure"
+    },
+    {
+      "kind": "transportReady",
+      "family": "ipv6",
+      "address": 6
+    },
+    {
+      "kind": "beginTls",
+      "family": "ipv6",
+      "address": 6
+    },
+    {
+      "kind": "success",
+      "family": "ipv6",
+      "address": 6
+    }
+  ],
+  "expect": {
+    "https": "failure",
+    "aborted": true,
+    "active": [],
+    "cancelled": [
+      {
+        "family": "ipv6",
+        "address": 6
+      }
+    ],
+    "winner": null,
+    "tls": [],
+    "rejectedActions": 3,
+    "valid": true
+  }
+}

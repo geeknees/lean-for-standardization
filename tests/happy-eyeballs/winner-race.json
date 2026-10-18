@@ -1,0 +1,85 @@
+{
+  "config": {
+    "attemptDelay": 0
+  },
+  "events": [
+    {
+      "kind": "dnsAAAA",
+      "addresses": [
+        6
+      ]
+    },
+    {
+      "kind": "dnsA",
+      "addresses": [
+        4
+      ]
+    },
+    {
+      "kind": "https",
+      "answer": "service"
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "advance",
+      "ms": 10
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "transportReady",
+      "family": "ipv6",
+      "address": 6
+    },
+    {
+      "kind": "beginTls",
+      "family": "ipv6",
+      "address": 6
+    },
+    {
+      "kind": "transportReady",
+      "family": "ipv4",
+      "address": 4
+    },
+    {
+      "kind": "beginTls",
+      "family": "ipv4",
+      "address": 4
+    },
+    {
+      "kind": "success",
+      "family": "ipv4",
+      "address": 4
+    },
+    {
+      "kind": "success",
+      "family": "ipv6",
+      "address": 6
+    },
+    {
+      "kind": "start"
+    }
+  ],
+  "expect": {
+    "winner": {
+      "family": "ipv4",
+      "address": 4
+    },
+    "startTimes": [
+      0,
+      10
+    ],
+    "active": [],
+    "cancelled": [
+      {
+        "family": "ipv6",
+        "address": 6
+      }
+    ],
+    "rejectedActions": 2,
+    "valid": true
+  }
+}

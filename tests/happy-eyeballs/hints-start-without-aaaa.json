@@ -1,0 +1,31 @@
+{
+  "events": [
+    {
+      "kind": "https",
+      "answer": "service",
+      "hints": [
+        {
+          "family": "ipv6",
+          "address": 6
+        }
+      ]
+    },
+    {
+      "kind": "start"
+    }
+  ],
+  "expect": {
+    "startTimes": [
+      0
+    ],
+    "active": [
+      {
+        "family": "ipv6",
+        "address": 6
+      }
+    ],
+    "resolutionReady": true,
+    "rejectedActions": 0,
+    "valid": true
+  }
+}

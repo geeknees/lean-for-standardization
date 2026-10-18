@@ -1,0 +1,69 @@
+{
+  "retrieved_on": "2026-10-18",
+  "spec": {
+    "repository": "ethereum/ERCs",
+    "commit": "503591a6e80e6e1affdd6403341e25269141f046",
+    "path": "ERCS/erc-8004.md",
+    "status": "Draft"
+  },
+  "implementation": {
+    "repository": "erc-8004/erc-8004-contracts",
+    "commit": "b9e466c250744a7e06b13dff9d3c2844ed64f825"
+  },
+  "files": [
+    {
+      "path": "erc-8004.md",
+      "bytes": 24470,
+      "sha256": "249dc3d96ad7bbe4afd25cacd14be942eb87751abcf1608bab19a610f3c3f8a9",
+      "git_blob_sha1": "7653a80922c0bf0243669f30e7a2d4aabfe006aa"
+    },
+    {
+      "path": "upstream/contracts/IdentityRegistryUpgradeable.sol",
+      "bytes": 9347,
+      "sha256": "18c8ca8c88493b46e54d000c96eaf7470d1f9dbfe55493fd7fa923bae543ff75",
+      "git_blob_sha1": "134b93126ae856548b5f3b09935c7b25336f01f3"
+    },
+    {
+      "path": "upstream/contracts/ReputationRegistryUpgradeable.sol",
+      "bytes": 15301,
+      "sha256": "9063eba192391c3e6959edcad452184f07a6c1b3975391e7c4d77dbf1eaabf09",
+      "git_blob_sha1": "6d5ad6b1a8ccd78e2c36990b0fa9b74b68b9ea35"
+    },
+    {
+      "path": "upstream/contracts/ValidationRegistryUpgradeable.sol",
+      "bytes": 7349,
+      "sha256": "26b1ebb8718abfeba1f12d51201f2adcf6c02f5bde79902532bd2d8fc3657882",
+      "git_blob_sha1": "7a28ef3372664e78618796692e92c3cc9e9ec7c8"
+    },
+    {
+      "path": "upstream/hardhat.config.ts",
+      "bytes": 23917,
+      "sha256": "aee2bf179a5eb58de5644c506361777b449c7e4ad1f77847a0d5938a342c7b5e",
+      "git_blob_sha1": "6fa88a76cd26bfc00c628d964ffee5fec2afeb98"
+    },
+    {
+      "path": "upstream/package-lock.json",
+      "bytes": 161132,
+      "sha256": "c869ae3bde4d17067998631756dcb0bfb0dda8f5153ea64e75b041fabe449e5c",
+      "git_blob_sha1": "bce45a830c22c985d3d6d5820049e184a1d4b251"
+    },
+    {
+      "path": "upstream/package.json",
+      "bytes": 2554,
+      "sha256": "acf10fe4652833b386709a7006d66dc01af8dc554770e2803d925e7e4066326d",
+      "git_blob_sha1": "669bbff8d44838a1fd86626c6ac4c41572d39731"
+    },
+    {
+      "path": "upstream/test/core.ts",
+      "bytes": 83170,
+      "sha256": "eabdb3147274efbdd913f0acd37d4a08dc0dc58643e01f571d3698b77f1a5ca5",
+      "git_blob_sha1": "e41de5dbe081e19b69143945db3c6463bc48ff2f"
+    },
+    {
+      "path": "upstream/test/upgradeable.ts",
+      "bytes": 23767,
+      "sha256": "2e2fb1c0eade7f876e56eeab9ae616a6ac069270029ae2708ad30011592e68b5",
+      "git_blob_sha1": "0e6ff014c9e5679c78476a150070359683884fd4"
+    }
+  ]
+}

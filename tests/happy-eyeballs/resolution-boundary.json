@@ -1,0 +1,33 @@
+{
+  "events": [
+    {
+      "kind": "dnsA",
+      "addresses": [
+        4
+      ]
+    },
+    {
+      "kind": "advance",
+      "ms": 49
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "advance",
+      "ms": 1
+    },
+    {
+      "kind": "start"
+    }
+  ],
+  "expect": {
+    "startTimes": [
+      50
+    ],
+    "rejectedActions": 1,
+    "resolutionReady": true,
+    "tlsAllowed": false,
+    "valid": true
+  }
+}

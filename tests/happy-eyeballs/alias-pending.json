@@ -1,0 +1,41 @@
+{
+  "events": [
+    {
+      "kind": "dnsAAAA",
+      "addresses": [
+        6
+      ]
+    },
+    {
+      "kind": "https",
+      "answer": "alias"
+    },
+    {
+      "kind": "advance",
+      "ms": 50
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "transportReady",
+      "family": "ipv6",
+      "address": 6
+    },
+    {
+      "kind": "beginTls",
+      "family": "ipv6",
+      "address": 6
+    }
+  ],
+  "expect": {
+    "https": "alias",
+    "startTimes": [
+      50
+    ],
+    "tlsAllowed": false,
+    "tls": [],
+    "rejectedActions": 1,
+    "valid": true
+  }
+}

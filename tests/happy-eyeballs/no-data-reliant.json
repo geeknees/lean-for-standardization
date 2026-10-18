@@ -1,0 +1,37 @@
+{
+  "config": {
+    "svcbReliant": true
+  },
+  "events": [
+    {
+      "kind": "dnsAAAA",
+      "addresses": [
+        6
+      ]
+    },
+    {
+      "kind": "https",
+      "answer": "noData"
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "transportReady",
+      "family": "ipv6",
+      "address": 6
+    },
+    {
+      "kind": "beginTls",
+      "family": "ipv6",
+      "address": 6
+    }
+  ],
+  "expect": {
+    "https": "noData",
+    "tlsAllowed": false,
+    "tls": [],
+    "rejectedActions": 1,
+    "valid": true
+  }
+}

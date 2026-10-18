@@ -1,0 +1,11 @@
+{
+  "operations": [
+    {"op": "register", "caller": 1},
+    {"op": "transfer", "caller": 1, "agentId": 0, "newOwner": 2},
+    {"op": "feedback", "caller": 1, "agentId": 0, "value": "100", "decimals": 0}
+  ],
+  "expect": {
+    "state": {"agents": [{"owner": 2, "wallet": null}], "feedback": [{"agentId": 0, "client": 1, "value": "100"}]},
+    "outcomes": [{"status": "accepted"}, {"status": "accepted"}, {"status": "accepted"}]
+  }
+}

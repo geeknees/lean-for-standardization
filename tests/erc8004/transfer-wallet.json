@@ -1,0 +1,16 @@
+{
+  "operations": [
+    {"op": "register", "caller": 1},
+    {"op": "approve", "caller": 1, "agentId": 0, "operator": 2},
+    {"op": "setWallet", "caller": 2, "agentId": 0, "wallet": 7, "proofValid": true},
+    {"op": "transfer", "caller": 2, "agentId": 0, "newOwner": 3},
+    {"op": "setWallet", "caller": 2, "agentId": 0, "wallet": 9, "proofValid": true}
+  ],
+  "expect": {
+    "state": {"agents": [{"id": 0, "owner": 3, "wallet": null, "approved": null}], "feedback": []},
+    "outcomes": [
+      {"status": "accepted"}, {"status": "accepted"}, {"status": "accepted"},
+      {"status": "accepted"}, {"status": "rejected", "reason": "unauthorized"}
+    ]
+  }
+}
