@@ -1,0 +1,11 @@
+# ABOUTME: Build an observation adapter around the unmodified, pinned Mozilla state machine.
+# ABOUTME: Keep Rust dependencies isolated from the Lean model and its standard CI.
+[package]
+name = "mozilla-he-adapter"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+happy-eyeballs = { path = "../../../specs/happy-eyeballs/mozilla" }
+serde_json = "1.0"

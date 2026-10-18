@@ -1,0 +1,74 @@
+{
+  "events": [
+    {
+      "kind": "https",
+      "answer": "noData"
+    },
+    {
+      "kind": "advance",
+      "ms": 100
+    },
+    {
+      "kind": "dnsA",
+      "addresses": [
+        4
+      ]
+    },
+    {
+      "kind": "advance",
+      "ms": 49
+    },
+    {
+      "kind": "advance",
+      "ms": 1
+    }
+  ],
+  "expect": {
+    "differences": [
+      {
+        "event": 2,
+        "fields": [
+          "starts"
+        ]
+      },
+      {
+        "event": 3,
+        "fields": [
+          "starts"
+        ]
+      },
+      {
+        "event": 4,
+        "fields": [
+          "starts"
+        ]
+      }
+    ],
+    "lean": {
+      "starts": [
+        {
+          "endpoint": {
+            "family": "ipv4",
+            "address": 4
+          },
+          "at": 150
+        }
+      ],
+      "winner": null,
+      "cancelled": []
+    },
+    "mozilla": {
+      "starts": [
+        {
+          "endpoint": {
+            "family": "ipv4",
+            "address": 4
+          },
+          "at": 100
+        }
+      ],
+      "winner": null,
+      "cancelled": []
+    }
+  }
+}

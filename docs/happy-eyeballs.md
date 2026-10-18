@@ -68,6 +68,12 @@ lake exe oracle happy-eyeballs tests/happy-eyeballs/winner-race.json
 
 JSONは `events` と任意の `config` を受け取る。endpointは `{"family":"ipv6","address":6}` の形式で、addressはネットワークアドレスの構文を表さない不透明な識別子である。各fixtureの `expect` は共通テスト実行器の期待出力であり、oracleは無視する。出力の `starts` と `tls` は古い順、`active` は内部順序である。`rejectedActions` は適用条件を満たさず状態を変えなかった操作数であり、DNS受信やゼロ時間の経過は数えない。
 
+## 独立実装との比較
+
+MozillaのRust状態機械をコミット`dec4cea08c26806b9c3c81a97884c81c54316762`に固定し、17入力列の各prefixで接続開始・勝者・キャンセルを比較した。13本で一致し、失敗直後の開始間隔、IPv6 hintによる開始、hint保持、Resolution Delayの起点の4本で差を再現した。
+
+MozillaのREADMEが宣言する版は`-02`である。TLSの開始／TCPの進捗は独立した公開APIイベントでないため、この比較では観測しない。詳細、未対応入力、再現コマンドは[Mozilla比較](mozilla-comparison.md)を参照。モデルの定理と外部実装との一致を区別する。
+
 ## 限界と次の優先順位
 
 - RFC 6724の完全な順位規則、複数サービス優先度、ALPN群、QUIC、IPv6-only/NAT64、RTT学習、キャッシュ／TTLは未形式化。family内の事前順位を外部の責任とした。
@@ -76,6 +82,6 @@ JSONは `events` と任意の `config` を受け取る。endpointは `{"family":
 - `ValidState` は証明対象の安全条件を表す。全ての構造的整合性や全draft適合性を定義したものではない。
 - 進行性は未証明。公平な `start` の発火、DNSの必要回答到着、少なくとも1つの到達可能endpoint、有限時間で返るtransport/TLS結果等を仮定する必要がある。
 - 安全性定理は任意のDNSイベント順に成り立つが、順序を替えたとき同じ接続が勝つことや同じ遅延で終わることは主張しない。
-- 外部のHappy Eyeballs実装との差分テストは未実施。次は実装と観測境界を固定したadapter、複数サービスの順序、QUICのTLS同時開始、条件付き進行性の順に拡張する。
+- 外部比較は上記のMozilla版と単一サービス／h2／ECH無効の入力に限定する。実ソケット、TLS待機、複数サービスの順序、QUIC、条件付き進行性への一般化は未検証。
 
 サービス群の順序には既存の [upstream Issue #113](https://github.com/ietf-wg-happy/draft-happy-eyeballs-v3/issues/113) がある。未実装領域の既存議論であり、このPoCが新規発見した問題ではない。

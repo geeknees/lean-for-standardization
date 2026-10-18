@@ -31,6 +31,8 @@ Leanが検証するのは形式モデルに書かれた命題であり、自然�
 
 ## 実装比較・CI
 
-実ネットワーク実装とのHappy Eyeballs差分テストは未実装。ERC-8004は固定ソース・既存テストの調査と5ケースのローカルEVM差分実行を行い、4ケースで一致、1ケースで数値域の不一致を確認した。比較はaccept/rejectと最終状態の射影に限り、全ABI eventやrevert理由の一致は含めない。固定条件は[独立EVM比較](evm-comparison.md)を参照する。
+Happy Eyeballsは[Mozillaの固定状態機械](mozilla-comparison.md)と17入力列を比較し、13本一致・4本の差を確認した。接続開始・勝者・キャンセルの全prefixが対象で、実ネットワーク、TLS開始、DNSエラー／更新、複数service group、QUICは対象外。Mozillaの宣言版`-02`とLeanの根拠版`-04`を区別する。開始指示を実際のソケット処理へ写す呼出側も検証していない。
 
-GitHub Actionsのワークフローを用意しても、ローカルの検証成功はGitHub上でのCI成功を意味しない。push・公開・上流報告はこのセッションの検証結果とは別に扱う。
+ERC-8004は固定ソース・既存テストの調査と5ケースのローカルEVM差分実行を行い、4ケースで一致、1ケースで数値域の不一致を確認した。比較はaccept/rejectと最終状態の射影に限り、全ABI eventやrevert理由の一致は含めない。固定条件は[独立EVM比較](evm-comparison.md)を参照する。
+
+初期PoCはPR #1でマージされ、`main`の`44ff755`で[Lean CI成功](https://github.com/geeknees/lean-for-standardization/actions/runs/39134973408)を確認した。EVM・Mozilla比較は独立したローカル実行で、通常CIに含まない。今回追加した比較のローカル成功を、この追加差分のリモートCI成功とは扱わない。上流報告は未実施。

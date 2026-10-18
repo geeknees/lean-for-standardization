@@ -25,6 +25,120 @@
       "bytes": 54386,
       "sha256": "7ebf658a131210a318ef7bdd992efea99aa677534242c3c56100c19de727afb9",
       "git_blob_sha1": "6c51350a4256f093fefef25f6f505fc4f5c3a8bd"
+    },
+    {
+      "path": "mozilla/Cargo.toml",
+      "bytes": 385,
+      "sha256": "81b46d624d44d08cad0dd1de1a5fdd82ad5acd3f62042443a27dd40e151abce2",
+      "git_blob_sha1": "c0e6fc7aff5c07c0da156e1ff6a69b93803f34ca"
+    },
+    {
+      "path": "mozilla/Cargo.lock",
+      "bytes": 8864,
+      "sha256": "adee7c7404b02a5c94da8ce06e6c1921945bd55b1f6208c45877aa230e81abda",
+      "git_blob_sha1": "5bd99f2bb6f2af431950766485c4d3c597366e8d"
+    },
+    {
+      "path": "mozilla/README.md",
+      "bytes": 1485,
+      "sha256": "66aabb3a8df4926ec35f50a95060875a45a7d8e0c550aa6742bdd748b0e02279",
+      "git_blob_sha1": "172269b019c09f34e7cd0b1a71bb89024e8a14b6"
+    },
+    {
+      "path": "mozilla/LICENSE-MIT",
+      "bytes": 1062,
+      "sha256": "4ad721b5b6a3d39ca3e2202f403d897c4a1d42896486dd58963a81f8e64ef61d",
+      "git_blob_sha1": "b4850c9520045155c4c3650841d02871375154c8"
+    },
+    {
+      "path": "mozilla/LICENSE-APACHE",
+      "bytes": 10847,
+      "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+      "git_blob_sha1": "16fe87b06e802f094b3fbb0894b137bca2b16ef1"
+    },
+    {
+      "path": "mozilla/src/id.rs",
+      "bytes": 953,
+      "sha256": "3f025f8d61891dbebcabb19659640165e3eb37390325a9a50e1e13a415bd70c5",
+      "git_blob_sha1": "02e2457016dd581693141274e240efde06fecf49"
+    },
+    {
+      "path": "mozilla/src/lib.rs",
+      "bytes": 78598,
+      "sha256": "5ebba160b118f999c4f8ca6b8c47ac7f84b5b8a4163795fb8c90097fbc044757",
+      "git_blob_sha1": "4ede9e472f3fb0e68eb662105aa1f4ac8de22b40"
+    },
+    {
+      "path": "mozilla/tests/common/mod.rs",
+      "bytes": 16629,
+      "sha256": "21f4df65ea17df0079822106dfe7d914d3ebfff9ec7492703069fbe6cd7e1267",
+      "git_blob_sha1": "50a5167ea8a075a61153e276ef4337f9fbfd22c5"
+    },
+    {
+      "path": "mozilla/tests/connect_by_name.rs",
+      "bytes": 14578,
+      "sha256": "479b176990415271be253959c866643c5ce1462fbedbe90e80efb500fdd9336c",
+      "git_blob_sha1": "1090edbdb4f8300667a9af13892c7a7f5c6e231c"
+    },
+    {
+      "path": "mozilla/tests/connection_attempts.rs",
+      "bytes": 10173,
+      "sha256": "a82a5702491480b6098cc29d482d761ec443eaf1ca5e102fb9e00ecd37695dde",
+      "git_blob_sha1": "228d3da14503bbb692451d7dd0c215b71a612769"
+    },
+    {
+      "path": "mozilla/tests/failure.rs",
+      "bytes": 3758,
+      "sha256": "0b8fbdfd606b0ced789ad9e528232dc3e3c5d1fdd146f98a6dbdc34387de88f8",
+      "git_blob_sha1": "afc74b114164f8594ce01da469b3faa91b2242f9"
+    },
+    {
+      "path": "mozilla/tests/hostname_resolution.rs",
+      "bytes": 22723,
+      "sha256": "68c98bd109295c3b57e0e9820a65332ff7b32f6970398cc50b771d4d6ab915fe",
+      "git_blob_sha1": "cdbed78c44ddf2199b979dcc664dcf971c8ec313"
+    },
+    {
+      "path": "mozilla/tests/https_records.rs",
+      "bytes": 58356,
+      "sha256": "971a91fac4da33ac11559ebac3222d4c85b2a97b6df1f7243f94441c1760e74c",
+      "git_blob_sha1": "faaca4d5a2562d09a3e62ed49fff8b6baf3a8107"
+    },
+    {
+      "path": "mozilla/tests/network_config.rs",
+      "bytes": 24280,
+      "sha256": "aa956cea0ef79aad90e0430bf2e25152ca19291d81d53a43337d7221bcf5e501",
+      "git_blob_sha1": "5da095cfcc3e4b891a6dab274834f6a00b7e68cb"
+    },
+    {
+      "path": "mozilla/tests/optimistic_dns.rs",
+      "bytes": 14688,
+      "sha256": "6f34f8debdaf067032cf507d199dd0660ec04778073c3ade59197a29214d7b17",
+      "git_blob_sha1": "6c26bcf482c625d4067db2db05d3ae9a87297576"
+    },
+    {
+      "path": "mozilla/tests/type_impls.rs",
+      "bytes": 3293,
+      "sha256": "2beed088909608d353cfd47073df7803dc4d7595123e5da5705216d67a5c8319",
+      "git_blob_sha1": "58fccd6730dc2229e43e03d96585fe951c011569"
+    },
+    {
+      "path": "draft-ietf-happy-happyeyeballs-v3-02.txt",
+      "bytes": 64436,
+      "sha256": "4aef9bce6537815c70c1213788b5f67cc597991cbd44d9114e9d232d33543690"
     }
-  ]
+  ],
+  "implementation": {
+    "repository": "mozilla/happy-eyeballs",
+    "commit": "dec4cea08c26806b9c3c81a97884c81c54316762",
+    "declared_draft": "draft-ietf-happy-happyeyeballs-v3-02",
+    "license": "MIT OR Apache-2.0",
+    "retrieved_on": "2026-10-18"
+  },
+  "comparison_spec": {
+    "revision": "draft-ietf-happy-happyeyeballs-v3-02",
+    "published_url": "https://www.ietf.org/archive/id/draft-ietf-happy-happyeyeballs-v3-02.txt",
+    "published_on": "2025-10-20",
+    "purpose": "Historical revision declared by the pinned Mozilla implementation; the Lean model remains based on -04."
+  }
 }
