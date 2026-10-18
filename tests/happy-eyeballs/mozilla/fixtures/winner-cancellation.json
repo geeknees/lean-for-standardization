@@ -1,0 +1,97 @@
+{
+  "events": [
+    {
+      "kind": "dnsAAAA",
+      "addresses": [
+        6
+      ]
+    },
+    {
+      "kind": "dnsA",
+      "addresses": [
+        4
+      ]
+    },
+    {
+      "kind": "https",
+      "answer": "noData"
+    },
+    {
+      "kind": "advance",
+      "ms": 250
+    },
+    {
+      "kind": "success",
+      "family": "ipv4",
+      "address": 4
+    },
+    {
+      "kind": "success",
+      "family": "ipv6",
+      "address": 6
+    },
+    {
+      "kind": "advance",
+      "ms": 1000
+    }
+  ],
+  "expect": {
+    "differences": [],
+    "lean": {
+      "starts": [
+        {
+          "endpoint": {
+            "family": "ipv6",
+            "address": 6
+          },
+          "at": 0
+        },
+        {
+          "endpoint": {
+            "family": "ipv4",
+            "address": 4
+          },
+          "at": 250
+        }
+      ],
+      "winner": {
+        "family": "ipv4",
+        "address": 4
+      },
+      "cancelled": [
+        {
+          "family": "ipv6",
+          "address": 6
+        }
+      ]
+    },
+    "mozilla": {
+      "starts": [
+        {
+          "endpoint": {
+            "family": "ipv6",
+            "address": 6
+          },
+          "at": 0
+        },
+        {
+          "endpoint": {
+            "family": "ipv4",
+            "address": 4
+          },
+          "at": 250
+        }
+      ],
+      "winner": {
+        "family": "ipv4",
+        "address": 4
+      },
+      "cancelled": [
+        {
+          "family": "ipv6",
+          "address": 6
+        }
+      ]
+    }
+  }
+}

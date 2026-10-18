@@ -1,0 +1,66 @@
+{
+  "events": [
+    {
+      "kind": "dnsAAAA",
+      "addresses": [
+        6,
+        7
+      ]
+    },
+    {
+      "kind": "https",
+      "answer": "noData"
+    },
+    {
+      "kind": "advance",
+      "ms": 249
+    },
+    {
+      "kind": "advance",
+      "ms": 1
+    }
+  ],
+  "expect": {
+    "differences": [],
+    "lean": {
+      "starts": [
+        {
+          "endpoint": {
+            "family": "ipv6",
+            "address": 6
+          },
+          "at": 0
+        },
+        {
+          "endpoint": {
+            "family": "ipv6",
+            "address": 7
+          },
+          "at": 250
+        }
+      ],
+      "winner": null,
+      "cancelled": []
+    },
+    "mozilla": {
+      "starts": [
+        {
+          "endpoint": {
+            "family": "ipv6",
+            "address": 6
+          },
+          "at": 0
+        },
+        {
+          "endpoint": {
+            "family": "ipv6",
+            "address": 7
+          },
+          "at": 250
+        }
+      ],
+      "winner": null,
+      "cancelled": []
+    }
+  }
+}

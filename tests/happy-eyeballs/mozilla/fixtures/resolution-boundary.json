@@ -1,0 +1,47 @@
+{
+  "events": [
+    {
+      "kind": "dnsA",
+      "addresses": [
+        4
+      ]
+    },
+    {
+      "kind": "advance",
+      "ms": 49
+    },
+    {
+      "kind": "advance",
+      "ms": 1
+    }
+  ],
+  "expect": {
+    "differences": [],
+    "lean": {
+      "starts": [
+        {
+          "endpoint": {
+            "family": "ipv4",
+            "address": 4
+          },
+          "at": 50
+        }
+      ],
+      "winner": null,
+      "cancelled": []
+    },
+    "mozilla": {
+      "starts": [
+        {
+          "endpoint": {
+            "family": "ipv4",
+            "address": 4
+          },
+          "at": 50
+        }
+      ],
+      "winner": null,
+      "cancelled": []
+    }
+  }
+}

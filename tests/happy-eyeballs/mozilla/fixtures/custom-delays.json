@@ -1,0 +1,79 @@
+{
+  "events": [
+    {
+      "kind": "dnsA",
+      "addresses": [
+        4
+      ]
+    },
+    {
+      "kind": "advance",
+      "ms": 24
+    },
+    {
+      "kind": "advance",
+      "ms": 1
+    },
+    {
+      "kind": "dnsAAAA",
+      "addresses": [
+        6
+      ]
+    },
+    {
+      "kind": "advance",
+      "ms": 99
+    },
+    {
+      "kind": "advance",
+      "ms": 1
+    }
+  ],
+  "expect": {
+    "differences": [],
+    "lean": {
+      "starts": [
+        {
+          "endpoint": {
+            "family": "ipv4",
+            "address": 4
+          },
+          "at": 25
+        },
+        {
+          "endpoint": {
+            "family": "ipv6",
+            "address": 6
+          },
+          "at": 125
+        }
+      ],
+      "winner": null,
+      "cancelled": []
+    },
+    "mozilla": {
+      "starts": [
+        {
+          "endpoint": {
+            "family": "ipv4",
+            "address": 4
+          },
+          "at": 25
+        },
+        {
+          "endpoint": {
+            "family": "ipv6",
+            "address": 6
+          },
+          "at": 125
+        }
+      ],
+      "winner": null,
+      "cancelled": []
+    }
+  },
+  "config": {
+    "resolutionDelay": 25,
+    "attemptDelay": 100
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "events": [
+    {
+      "kind": "dnsAAAA",
+      "addresses": []
+    },
+    {
+      "kind": "dnsA",
+      "addresses": []
+    },
+    {
+      "kind": "https",
+      "answer": "noData"
+    }
+  ],
+  "expect": {
+    "differences": [],
+    "lean": {
+      "starts": [],
+      "winner": null,
+      "cancelled": []
+    },
+    "mozilla": {
+      "starts": [],
+      "winner": null,
+      "cancelled": []
+    }
+  }
+}

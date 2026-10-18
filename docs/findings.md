@@ -33,11 +33,45 @@
 - 重複確認: upstreamの公開Issue一覧、SVCB／Resolution Delayを含む検索を確認したが、閉じたIssueとメール全体の照合は未完了。draft本文が既にこの待機を要求しているため、新規仕様欠陥として投稿しない。
 - 確信度: 固定モデルでの反例は実行確認済み。仕様への対応は§6.3の待機要件に直接対応する。新しいネットワーク攻撃の発見は主張しない。
 
-### HE-F03: 安全性違反と外部実装不一致は未発見
+### HE-F03: Leanモデル内の安全性違反は未検出
 
 14種類のイベントを深さ4まで、3configで探索し、124,113の状態訪問において `checkState` の違反はなかった。時間境界、AliasMode、hint置換、遅れて来るIPv4、勝者競合は別のシナリオでも確認した。任意長の安全性は帰納証明による。
 
-Happy Eyeballsの外部実装を固定した差分実行は未実施なので、外部実装との一致／不一致について結論はない。仕様の矛盾をこのPoCで確認したという結論もない。
+その後、Mozillaの固定状態機械と17入力列を比較し、13本の一致と4本の開始履歴の差を確認した。以下のHE-M01〜04に記録する。モデルの安全性定理を外部実装の性質へ一般化したり、この比較を仕様自体の矛盾の証拠としたりはしない。
+
+### HE-M01: 失敗直後の開始指示と10ms下限
+
+- 分類: **Open question**。公開APIの動作差は再現済み。10ms下限を実装と呼出側のどちらが保証するかは未確認。
+- 対象: Mozilla `dec4cea08c26806b9c3c81a97884c81c54316762`、`-02`と`-04`の§6。両版とも直前の開始から10ms未満で次を開始しない要件を持つ。
+- 前提: 単一サービス、h2のみ、ECH無効、attempt delay 250ms。各入力直後に出力を取り出し、開始指示の時刻を観測する。
+- 削除最小列: 時刻0で`AAAA([6,7]) → HTTPS(NODATA) → failure(ipv6:6)`。Leanの開始は`[0]`、Mozillaは`[0,0]`。各1イベント削除を再実行し、2候補は未発行接続へのcallbackで不適格、1候補は差を生まなかった。有効な入力列での削除最小性であり、全設定における最短性ではない。
+- 原因候補: 固定実装の[待機判定](https://github.com/mozilla/happy-eyeballs/blob/dec4cea08c26806b9c3c81a97884c81c54316762/src/lib.rs#L1597)は進行中のattemptだけを参照する。失敗したattemptが下限判定に残らない。
+- 再現: `ruby tests/happy-eyeballs/mozilla/run.rb`。`failure-spacing.json`の6イベントを3イベントへ縮小し、実行結果と削除検査をreportへ保存する。[手順と観測範囲](mozilla-comparison.md)。
+- 既存の証拠: 上流の`failed_connection_tries_next_immediately`、`failed_attempts_do_not_increase_delay`も即時再試行を期待する。動作自体の新規発見とはしない。全Issue/PRや組込み先の調査は未実施。
+- 確信度: 固定APIが同時刻に2つの開始指示を出すことは高い。実際のソケット開始やネットワーク影響、呼出側での追加間隔制御は未検証。上流への投稿はしていない。
+
+### HE-M02: IPv6 hintがあってもMozillaはAAAA回答を待つ
+
+- 分類: **Open question**。preferred-familyの回答条件の解釈と版の差を含む。
+- 再現列: IPv6 hint付きHTTPS ServiceModeだけを0msに返す。Leanは0ms、MozillaはResolution Delay後の50msに開始する。`mozilla/fixtures/ipv6-hint-start.json`で両方の時刻を固定した。
+- 関連: HE-F01と`-04`§§4.2.1–4.2.2。`-02`§4.2.2の具体例はTODO。Mozillaの`move_on_without_timeout`はpreferred-familyのquery完了を別途要求する。
+- 最小性: 最初の1イベント直後から差がある。全条件での最小性の探索はしていない。
+- 確信度: 開始時刻の差は再現済み。宣言版が異なる実装を現行仕様違反とは断定せず、モデルや実装の変更も行わない。上流の`https_hints_move_on_with_timeout`は50ms待機を期待する。
+
+### HE-M03: hintを最後の候補として保持する方針
+
+- 分類: **Open question**。SHOULDの扱いに関する既知の実装方針差。
+- 再現列: `AAAA([8]) → HTTPS(hints=[6,7]) → advance(250) → advance(250)`。Leanは8だけを試行し、Mozillaは8、6、7を0/250/500msで試行する。`mozilla/fixtures/hint-fallback.json`に保存。最小性は未探索。
+- 関連: `-02`/`-04`の§4.2.1、§7。Mozillaの[コメント](https://github.com/mozilla/happy-eyeballs/blob/dec4cea08c26806b9c3c81a97884c81c54316762/src/lib.rs#L412)は、RFC 9460 §7.3のSHOULDから意図的に外れてhintを保持すると説明する。上流にも`hints_kept_as_fallback_after_address_records`がある。
+- 観測上の注意: コメントには正式なアドレスの失敗後のfallbackという意図があるが、今回の入力には失敗通知がなく、時間経過だけでhintを試行した。ソースに書かれた意図と実際の条件を混同しない。
+- 確信度: 方針と実行の差は確認済み。SHOULDからの逸脱を直ちに仕様欠陥／実装バグとは分類しない。
+
+### HE-M04: Resolution Delayの起点
+
+- 分類: **Open question**。モデル方針の差。
+- 再現列: `HTTPS(NODATA) → advance(100) → A([4]) → advance(49) → advance(1)`。Mozillaは100ms、Leanは150msに開始する。`mozilla/fixtures/resolution-timer-origin.json`に保存。最小性は未探索。
+- 関連: `-02`/`-04`§4.2。Leanは最初の正のアドレス情報、MozillaはNODATAも含む最初の完了回答から計測する。上流の`resolution_delay_starts_on_first_response`も後者を期待している。
+- 確信度: 動作差は再現済み。起点を正の回答に限定することはLeanの明示的なモデル選択であり、比較の一致を目的に定義を変更しない。仕様解釈の追加判断は保留。
 
 ### HE-O01: 複数service groupへの拡張
 

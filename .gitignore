@@ -4,3 +4,5 @@
 tests/erc8004/evm/node_modules/
 tests/erc8004/evm/artifacts/
 tests/erc8004/evm/cache/
+tests/happy-eyeballs/mozilla/target/
+specs/happy-eyeballs/mozilla/target/

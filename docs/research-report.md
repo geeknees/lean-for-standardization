@@ -2,6 +2,8 @@
 
 実施日: 2026-10-18。対象はHappy Eyeballs v3 `-04`とERC-8004 Draftの固定コミット。両Trackの実行モデル、証明、反例探索、JSON CLI、原文・実装の固定、CI構成を作成し、Lean側を検証した。ERC-8004は独立したローカルEVMとの比較も実行し、4ケースの一致と1ケースの不一致を確認した。
 
+同日の追補として、MozillaのHappy Eyeballs状態機械との比較を実装・実行した。17入力列で13本が一致し、4本で開始履歴の差を確認した。ERC値域制約の意図に関する追加調査はこの追補の対象外である。
+
 ## 1. 実装・証明したもの
 
 両Trackに`Basic`、`Model`、`Properties`、`Oracle`、`Tests`を用意した。`step`／`run`は純粋関数であり、CLIからJSON操作列を評価できる。Lean同梱ライブラリ以外のLake依存はない。
@@ -40,12 +42,16 @@ MUST、SHOULD、本文の動作記述、モデル方針の対応は[仕様トレ
 | Resolution Delay満了＋TCP準備完了でもTLSを待つ | 4イベントalphabetで最短列探索、削除縮小、CLI再現 | Model issue、誤った候補性質の反証。仕様欠陥ではない |
 | 元ownerは移転後にfeedbackを投稿できる | 登録→移転→投稿、長さ0–3の有限列探索、EVMで同じ3操作の受理と最終状態一致 | Model issue、永久禁止という過剰な仮説の反証。Sybil耐性を示さない |
 | 公式実装のfeedback値域が仕様のint128より狭い | 固定Solidityの`±10^38`条件、Leanで`10^38+1`を受理、EVMは`value too large`で拒否 | Open question。動作差は再現済み。追加制約の意図・仕様違反かの判断は保留 |
+| Mozilla版が失敗直後に同時刻で次候補を開始する | 固定ソースの未変更実行、3イベントへの削除縮小 | Open question。公開APIの開始指示は10ms未満。呼出側の制御・実ソケットは未検証。上流テストにも同じ動作の期待がある |
+| IPv6 hintの開始、hint保持、Resolution Delayの起点が異なる | 共通のDNS/時刻入力、全prefixの開始履歴 | Open question。版・SHOULDの方針・モデルの選択を含む差であり、バグ3件とは数えない |
 
 EVM比較はSolidity 0.8.24、Shanghai、optimizer/runs 200、viaIR true、固定依存で実施した。移転、自己feedback、元ownerのfeedback、validationの4ケースが一致し、値域だけが不一致だった。数値域の反例は`register(1)`→第三者の`feedback(10^38+1)`の2操作。各1操作を削除するとaccept/rejectと最終状態が一致することも両側で再実行し、削除最小性を確認した。
 
 詳細は[独立EVM比較](evm-comparison.md)に記録した。原文の解釈と既存議論を確認し、人間のレビューを経るまでは上流へ投稿しない。[発見記録](findings.md)には、出典・前提・最小列・最小性の範囲・重複調査・確信度を残した。
 
 生成テストでは、HEの14イベント・深さ4・3Configの124,113状態訪問と、ERCの11操作・長さ1–4の16,104遷移で対象の安全性違反はなかった。長い競合は別の明示シナリオで補う。訪問数は重複を含み、無限の入力空間を網羅したものではない。
+
+Mozilla比較は`dec4cea08c26806b9c3c81a97884c81c54316762`を対象とした。READMEの宣言版は`-02`、Leanは`-04`である。初回待機、試行間隔、遅いIPv4、勝者／キャンセル、空回答、独自delay、DNS全6順列を含む17列を実行した。上流120テストも成功した。公開APIが区別しないTLS開始は比較対象に含めず、単一サービス・h2・ECH無効の範囲で比較した。[Mozilla比較](mozilla-comparison.md)にアダプターの規約、4件の差、入力不適格を除外した縮小結果を記録した。
 
 ## 4. 証明していないことと理由
 
@@ -71,9 +77,13 @@ EVM比較はSolidity 0.8.24、Shanghai、optimizer/runs 200、viaIR true、固�
 | `ruby tests/erc8004/evm/prepare.rb` | 固定ソースと依存lockを検査し、隔離したEVM比較環境を準備 |
 | EVM環境で`npm ci --ignore-scripts`と`npm exec -- hardhat compile` | 指定版の依存導入とSolidityコンパイルが完了 |
 | `node tests/erc8004/evm/run.mjs` | exit 0。4ケース一致、1ケースの指定した不一致、2つの削除候補で一致を検証 |
-| `git diff --check` | 成功 |
+| 固定Mozillaソースで`cargo test --locked` | 120件成功（doc-test 1件を含む） |
+| Rustアダプターで`cargo test --locked --offline` | 3件成功。開始、勝者／キャンセル、未対応入力の拒否を確認 |
+| `ruby tests/happy-eyeballs/mozilla/test_runner.rb` | 全prefix比較、無効callback、削除最小化、誤った期待値での失敗／不完全reportを確認 |
+| `ruby tests/happy-eyeballs/mozilla/run.rb` | exit 0。17列中13一致、4件の既知の差、3イベントの開始間隔反例を確認 |
+| `git diff --cached --check -- . ':(exclude)specs/happy-eyeballs/mozilla/**'` | 独自変更の空白検査は成功。保存した上流原文の`mozilla/src/lib.rs:1567`にある末尾空白1件は、原文のハッシュを維持するため保持 |
 
-GitHub Actionsには同じ検証を設定した。リモートCIの実行・公開・上流Issue投稿は未実施。
+GitHub Actionsには同じLean検証を設定した。2026-10-18に[PR #1](https://github.com/geeknees/lean-for-standardization/pull/1)をマージし、公開した`main`の`44ff755756a10145d08dfd4d61511a04bfe74317`で[Lean CIが成功](https://github.com/geeknees/lean-for-standardization/actions/runs/39134973408)した。EVM・Mozilla比較は独立したローカル実行であり、このCIには含まない。今回の追補差分のリモートCIも未実施。上流Issue投稿は未実施。同じコミットに対するDependabot Updatesには失敗した実行もあるが、Lean検証とは別のワークフローである。
 
 ## 6. Leanを使った追加価値
 
@@ -85,10 +95,12 @@ ERCではtoken承認とowner別global承認の違いを、移転後権限の定�
 
 ## 7. 次の研究課題
 
-1. 実行で再現したERC値域の差について、仕様が許す追加制約かを既存議論と人間レビューで確認する。必要ならレビュー済みの最小再現例で上流へ相談する。
-2. Happy Eyeballsの既存実装と観測境界を固定し、同じDNS・時刻・コールバック列を比較する。
+1. Mozilla比較で得た4件の差について、公開APIと呼出側の責任、仕様版、SHOULDの方針、モデルの解釈をレビューする。既存テストに含まれる動作を新規発見とは扱わない。
+2. 固定した観測範囲で生成列の比較を増やす。公開APIで観測できないTLS内部は、適切な比較対象／観測方法を決めるまで分離する。
 3. 複数service groupとQUICを段階的に加え、スケジューラの公平性を定義して条件付き活性を証明する。
 4. ERCの署名期限・owner binding・重複request方針を明確化し、reentrancyや集約処理を別の検証範囲として追加する。
 5. AI支援の効果を、失敗した候補、修正理由、作業時間、人間レビューの負荷を測る実験として評価する。
+
+ERC値域差の意図調査は保留とし、今回のMozilla比較には含めない。上流への相談は、対象を絞った再現・解釈レビューと投稿の承認後に行う。
 
 新規仕様欠陥の確定数を増やすことではなく、根拠・前提・再現性を揃えることを次段階への条件とする。

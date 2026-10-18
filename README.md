@@ -15,6 +15,8 @@ Lean **4.35.0**でローカルビルド・証明検証・公理依存監査を�
 
 ERC-8004は固定したSolidity **0.8.24**／ローカルEVMでも比較し、4シナリオで観測が一致、feedback値域について1件の不一致を再現しました。詳細と再現手順は[独立EVM比較](docs/evm-comparison.md)にあります。
 
+Happy Eyeballsは[Mozillaの固定実装](https://github.com/mozilla/happy-eyeballs/tree/dec4cea08c26806b9c3c81a97884c81c54316762)とも比較しました。接続開始・勝者・キャンセルを各入力直後に観測し、17入力列で13本が一致、4本で差がありました。失敗直後の同時刻開始は3イベントに縮小しています。版・モデル方針・観測範囲を含む結果は[Mozilla比較](docs/mozilla-comparison.md)に記載しています。
+
 仕様全体への準拠や、現実のネットワーク／EVMの正しさを証明したものではありません。各結果の前提は[仕様対応表](docs/spec-traceability.md)、[限界](docs/limitations.md)、[研究レポート](docs/research-report.md)に記載しています。
 
 ## 再現手順
@@ -61,6 +63,7 @@ Happy Eyeballs入力は`config`と`events`、ERC-8004入力は`operations`です
 - HTTPSのIPv6ヒントだけで進めるケースを原文と照合し、AAAAを待ちすぎていたモデル初稿を修正しました。
 - 自己feedback禁止は現在の管理権限を対象とします。登録→移転→元ownerによる投稿の3操作で、「過去のownerも永久に禁止される」という仮説を反証しました。
 - 公式Solidityのfeedbackには、仕様の`int128`より狭い`±10^38`の制限があります。`10^38+1`をLeanは受理し、ローカルEVMは`value too large`で拒否する差を再現し、登録→投稿の2操作に削除最小化しました。追加制約が仕様上許されるかは未確定です。
+- Mozilla版では失敗済み接続を待機判定から除き、同じ時刻に次の開始指示を出すケースを確認しました。上流テストも即時再試行を期待しており、新規性や組込み先への影響は主張しません。IPv6 hintの開始、hint保持、Resolution Delayの起点にもモデルとの差があります。
 
 仕様欠陥の発見とは限りません。出典、最小列、既存議論の確認、確信度は[findings](docs/findings.md)を参照してください。上流への自動投稿は行いません。
 
@@ -73,13 +76,13 @@ LeanForStandardization/{HappyEyeballs,ERC8004}/
   Properties.lean   証明
   Oracle.lean       JSON入出力
   Tests.lean        シナリオ・有界探索・反例探索
-tests/              保存したJSON列と独立EVM比較runner
+tests/              保存したJSON列と独立EVM・Mozilla比較runner
 specs/              固定した原文・比較ソース・ハッシュ
 docs/               要件、方法、対応表、発見、限界、研究レポート
 Audit.lean          コンパイル済み依存関係の監査
 ```
 
-[GitHub Actions](.github/workflows/lean.yml)はビルド、証明、公理依存監査、モデルテスト、原文照合、JSONシナリオを実行する構成です。GitHub上の実行結果はまだ確認していません。EVM比較は追加依存を持つ独立手順とし、通常のLean CIには含めません。
+[GitHub Actions](.github/workflows/lean.yml)はビルド、証明、公理依存監査、モデルテスト、原文照合、JSONシナリオを実行します。2026-10-18に[PR #1](https://github.com/geeknees/lean-for-standardization/pull/1)をマージし、`main`の`44ff755`で[Lean CIの成功](https://github.com/geeknees/lean-for-standardization/actions/runs/39134973408)を確認しました。EVM・Mozilla比較は追加依存を持つ独立したローカル検証で、通常のLean CIには含めません。
 
 [仕様の固定版](docs/spec-versions.md)・[研究の問い](docs/research-questions.md)・[方法](docs/methodology.md)も参照してください。研究構成は[lean4-dom](https://github.com/takahashim/lean4-dom)を参考にしました。
 
