@@ -1,0 +1,10 @@
+{
+  "operations": [
+    {"op": "register", "caller": 1},
+    {"op": "feedback", "caller": 2, "agentId": 0, "value": "100000000000000000000000000000000000001", "decimals": 0}
+  ],
+  "expect": {
+    "state": {"feedback": [{"agentId": 0, "client": 2, "index": 1, "value": "100000000000000000000000000000000000001", "decimals": 0}]},
+    "outcomes": [{"status": "accepted"}, {"status": "accepted"}]
+  }
+}

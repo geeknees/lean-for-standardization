@@ -1,0 +1,38 @@
+{
+  "events": [
+    {
+      "kind": "dnsA",
+      "addresses": [
+        4
+      ]
+    },
+    {
+      "kind": "advance",
+      "ms": 50
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "transportReady",
+      "family": "ipv4",
+      "address": 4
+    },
+    {
+      "kind": "beginTls",
+      "family": "ipv4",
+      "address": 4
+    }
+  ],
+  "expect": {
+    "now": 50,
+    "startTimes": [
+      50
+    ],
+    "resolutionReady": true,
+    "tlsAllowed": false,
+    "tls": [],
+    "rejectedActions": 1,
+    "valid": true
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "config": {
+    "attemptDelay": 0
+  },
+  "events": [
+    {
+      "kind": "dnsAAAA",
+      "addresses": [
+        6,
+        7
+      ]
+    },
+    {
+      "kind": "https",
+      "answer": "service"
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "advance",
+      "ms": 9
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "failure",
+      "family": "ipv6",
+      "address": 6
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "advance",
+      "ms": 1
+    },
+    {
+      "kind": "start"
+    }
+  ],
+  "expect": {
+    "startTimes": [
+      0,
+      10
+    ],
+    "rejectedActions": 2,
+    "winner": null,
+    "valid": true,
+    "failed": [
+      {
+        "family": "ipv6",
+        "address": 6
+      }
+    ],
+    "active": [
+      {
+        "family": "ipv6",
+        "address": 7
+      }
+    ]
+  }
+}

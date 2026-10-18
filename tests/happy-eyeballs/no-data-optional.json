@@ -1,0 +1,43 @@
+{
+  "events": [
+    {
+      "kind": "dnsAAAA",
+      "addresses": [
+        6
+      ]
+    },
+    {
+      "kind": "https",
+      "answer": "noData"
+    },
+    {
+      "kind": "start"
+    },
+    {
+      "kind": "transportReady",
+      "family": "ipv6",
+      "address": 6
+    },
+    {
+      "kind": "beginTls",
+      "family": "ipv6",
+      "address": 6
+    }
+  ],
+  "expect": {
+    "https": "noData",
+    "tlsAllowed": true,
+    "tls": [
+      {
+        "endpoint": {
+          "family": "ipv6",
+          "address": 6
+        },
+        "at": 0,
+        "observedHttps": "noData"
+      }
+    ],
+    "rejectedActions": 0,
+    "valid": true
+  }
+}

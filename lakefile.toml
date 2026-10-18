@@ -1,0 +1,16 @@
+# ABOUTME: Build two independent executable standards models with Lean's bundled libraries.
+# ABOUTME: Include model tests and the JSON oracle in the default build.
+name = "lean-for-standardization"
+version = "0.1.0"
+defaultTargets = ["LeanForStandardization", "oracle", "model-tests"]
+
+[[lean_lib]]
+name = "LeanForStandardization"
+
+[[lean_exe]]
+name = "oracle"
+root = "Main"
+
+[[lean_exe]]
+name = "model-tests"
+root = "Tests"
